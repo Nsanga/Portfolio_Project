@@ -19,11 +19,9 @@ function Header() {
         <Stack display="flex" flexDirection={isNotSmallerScreeen ? "row" : "column"} p={isNotSmallerScreeen ? "10" : "0"}
              alignSelf="flex-start">
             <Box alignSelf="center" mt={40} display="flex"flexDirection="column" gap={4}>
-
                 <Link href="https://www.linkedin.com/in/mercure-mekinda-694133165/" target="_blank"><Icon as={FaLinkedin} boxSize="35" /></Link>
                 <Link href="https://github.com/Nsanga/" target="_blank"><Icon as={FaGithub} boxSize="35" /></Link>
                 <Link href="https://trello.com/b/EAyRTY4m/" target="_blank"><Icon as={FaTrello} boxSize="35" /></Link>
-
             </Box>
             <Box alignItems="center" px="24" >
                 <Image src={bulle} alt="Alternate Text" />

@@ -1,15 +1,14 @@
 import React from "react";
 import { Stack, Heading, Box, HStack, VStack } from "@chakra-ui/layout";
 import { Image, Link } from "@chakra-ui/react";
-import { FaEnvelope, FaFile, FaUser } from "react-icons/fa";
-import logo from "../assets/logo.png";
+import { FaEnvelope, FaFile, FaUser, FaBars } from "react-icons/fa";
 
 
 function Navigation() {
 
     return (
         <VStack>
-            <HStack spacing={490} px={16} py={3}>
+            <HStack spacing={420} px={16} py={3}>
                 <Box display="flex" flexDirection="row">
                     <HStack>
                         <FaEnvelope /><Link fontWeight="semibold" href="mailto:mercuremekinda@gmail.com" target="_blank">mercuremekinda@gmail.com</Link>
@@ -24,6 +23,7 @@ function Navigation() {
                     </HStack>
                 </Box>
             </HStack>
+
 
         </VStack>
     )
