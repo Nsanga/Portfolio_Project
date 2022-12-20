@@ -10,20 +10,20 @@ function Realisation() {
     return (
         <VStack ml={isNotSmallerScreeen ? "40" : "0"} >
             <br />
-            <br /><Box display="flex" flexDirection="column" gap={4}>
+            <br /><Box display="flex" flexDirection="column" px={2} gap={4}>
                 <Text ml={isNotSmallerScreeen ? "2" : "0"}  fontFamily='Raleway' fontWeight={700} fontSize="50px">Mes Réalisations</Text>
                 <Text ml={isNotSmallerScreeen ? "2":"0"} fontFamily='Raleway' fontWeight={500} fontSize="30px">Mes projets</Text>
                 <br />
                 <Text ml={isNotSmallerScreeen ? "2":"0"} fontFamily='Raleway' fontWeight={500} fontSize="30px">Des applications Webs</Text><br/>
 
-                <Card display="flex" flexDirection="row" w="95%" align="center" justify="center" boxShadow="8px 4px 4px rgba(0, 0, 0, 0.25)" borderRadius="10px">
+                <Card display="flex" flexDirection="row" align="center" justify="center" boxShadow="8px 4px 4px rgba(0, 0, 0, 0.25)" borderRadius="10px">
                         <Image src={realisation}  w="40%"/>
                         <Image src={realisation}  w="40%"/>
                     
                 </Card><br/>
                 <Text ml={isNotSmallerScreeen ? "2":"0"} fontFamily='Raleway' fontWeight={500} fontSize="30px">Des applications Natives</Text><br/>
 
-                <Card display="flex" flexDirection="row" w="95%" align="center" justify="center" boxShadow="8px 4px 4px rgba(0, 0, 0, 0.25)" borderRadius="10px">
+                <Card display="flex" flexDirection="row" align="center" justify="center" boxShadow="8px 4px 4px rgba(0, 0, 0, 0.25)" borderRadius="10px">
                         <Image src={realisation}  w="40%"/>
                         <Image src={realisation}  w="40%"/>
                     
