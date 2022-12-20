@@ -17,8 +17,8 @@ function Header() {
 
     return (
         <Stack display="flex" flexDirection={isNotSmallerScreeen ? "row" : "column"} p={isNotSmallerScreeen ? "10" : "0"}
-            spacing="20px" alignSelf="flex-start">
-            <Box alignSelf="center" px="1" mt={32}>
+             alignSelf="flex-start">
+            <Box alignSelf="center" mt={40} display="flex"flexDirection="column" gap={4}>
 
                 <Link href="https://www.linkedin.com/in/mercure-mekinda-694133165/" target="_blank"><Icon as={FaLinkedin} boxSize="35" /></Link>
                 <Link href="https://github.com/Nsanga/" target="_blank"><Icon as={FaGithub} boxSize="35" /></Link>
@@ -27,9 +27,9 @@ function Header() {
             </Box>
             <Box alignItems="center" px="24" >
                 <Image src={bulle} alt="Alternate Text" />
-                <Text fontFamily="EB Garamond" fontStyle="normal" fontWeight={700} fontSize="64px">MercureM</Text>
-                <Text fontFamily='Raleway' fontWeight="700" fontSize="36px">Développeur Full Stack <br/> & Web designer</Text>
-                <Text fontFamily='Raleway' fontWeight="500" fontSize="23px" >Développeur de logiciels et webdesigner à Yaoundé, au Cameroun avec une expérience dans la création d’applications avec des technologies modernes.</Text>
+                <Text fontFamily="EB Garamond" fontStyle="normal" fontWeight={700} fontSize="64px" mt={-8}>MercureM</Text>
+                <Text fontFamily='Raleway' fontWeight="700" fontSize="36px" mt={isNotSmallerScreeen ? "8" : "0"}>Développeur Full Stack <br/> & Web designer</Text>
+                <Text fontFamily='Raleway' fontWeight="500" fontSize="23px" mt={isNotSmallerScreeen ? "4" : "0"}>Développeur de logiciels et webdesigner à Yaoundé, au Cameroun avec une expérience dans la création d’applications avec des technologies modernes.</Text>
                 <Button colorScheme='blue' variant='outline' mt={8} onClick={()=>window.open("mailto:mercuremekinda@gmail.com")}>Contactez moi</Button>
             </Box>
 

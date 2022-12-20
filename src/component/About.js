@@ -8,7 +8,7 @@ function About() {
 
     const [isNotSmallerScreeen] = useMediaQuery("(min-width:600px)");
     return (
-        <VStack mr={isNotSmallerScreeen ? "0" : "0"} >
+        <VStack mr={isNotSmallerScreeen ? "0" : "0"} py={10}>
             <br />
             <Box display="flex" flexDirection="column" gap={4}>
                 <Card w="65%" boxShadow="8px 4px 4px rgba(0, 0, 0, 0.25)" borderRadius="10px">
