@@ -16,23 +16,25 @@ function Header() {
     const [isNotSmallerScreeen] = useMediaQuery("(min-width:300px)");
 
     return (
-        <Stack display="flex" flexDirection={isNotSmallerScreeen ? "row" : "column"} p={isNotSmallerScreeen ? "10" : "0"}
-             alignSelf="flex-start">
-            <Box alignSelf="center" mt={40} display="flex"flexDirection="column" gap={4}>
-                <Link href="https://www.linkedin.com/in/mercure-mekinda-694133165/" target="_blank"><Icon as={FaLinkedin} boxSize="35" /></Link>
-                <Link href="https://github.com/Nsanga/" target="_blank"><Icon as={FaGithub} boxSize="35" /></Link>
-                <Link href="https://trello.com/b/EAyRTY4m/" target="_blank"><Icon as={FaTrello} boxSize="35" /></Link>
+        <Stack display="flex" flexDirection={isNotSmallerScreeen ? "row" : "column"} p={isNotSmallerScreeen ? "10" : "0"} 
+            alignSelf="flex-start">
+            <Box alignSelf="center" mt={40} display="flex" flexDirection="column" gap={4} >
+                <Link href="https://www.linkedin.com/in/mercure-mekinda-694133165/" target="_blank" _hover={{ color: "#0080ff" }}><Icon as={FaLinkedin} boxSize="35" /></Link>
+                <Link href="https://github.com/Nsanga/" target="_blank" _hover={{ color: "#0080ff" }}><Icon as={FaGithub} boxSize="35" /></Link>
+                <Link href="https://trello.com/b/EAyRTY4m/" target="_blank" _hover={{ color: "#0080ff" }}><Icon as={FaTrello} boxSize="35" /></Link>
             </Box>
-            <Box alignItems="center" px="24" >
-                <Image src={bulle} alt="Alternate Text" />
-                <Text fontFamily="EB Garamond" fontStyle="normal" fontWeight={700} fontSize="64px" mt={-8}>MercureM</Text>
-                <Text fontFamily='Raleway' fontWeight="700" fontSize="36px" mt={isNotSmallerScreeen ? "8" : "0"}>Développeur Full Stack <br/> & Web designer</Text>
-                <Text fontFamily='Raleway' fontWeight="500" fontSize="23px" mt={isNotSmallerScreeen ? "4" : "0"}>Développeur de logiciels et webdesigner à Yaoundé, au Cameroun avec une expérience dans la création d’applications avec des technologies modernes.</Text>
-                <Button colorScheme='blue' variant='outline' mt={8} onClick={()=>window.open("mailto:mercuremekinda@gmail.com")}>Contactez moi</Button>
-            </Box>
+            
+                <Box alignItems="center" px="24" >
+                    <Image src={bulle} alt="Alternate Text" />
+                    <Text fontFamily="EB Garamond" fontStyle="normal" fontWeight="bold" fontSize="64px" mt={-8}>MercureM</Text>
+                    <Text fontFamily='Raleway' fontWeight="semibold" fontSize="36px" mt={isNotSmallerScreeen ? "8" : "0"}>Développeur Full Stack <br /> & Web designer</Text>
+                    <Text fontFamily='Raleway' fontWeight="medium" fontSize="23px" mt={isNotSmallerScreeen ? "4" : "0"}>Développeur de logiciels et webdesigner à Yaoundé, au Cameroun avec une expérience dans la création d’applications avec des technologies modernes.</Text>
+                    <Button colorScheme='blue' variant='outline' mt={8}
+                        _hover={{ bg: "#0080ff", color: "white" }} onClick={() => window.open("mailto:mercuremekinda@gmail.com")}>Contactez moi</Button>
+                </Box>
 
-            <Image alignSelf="center" mt={isNotSmallerScreeen ? "0" : "12"}
-                mb={isNotSmallerScreeen ? "0" : "12"} borderRadius="full" backgroundColor="transparent" boxShadow="lg" boxSize={500} src={avatar}/>
+                <Image alignSelf="center" mt={isNotSmallerScreeen ? "0" : "12"}
+                    mb={isNotSmallerScreeen ? "0" : "12"} borderRadius="full" backgroundColor="transparent" boxShadow="lg" boxSize={500} src={avatar} />
 
 
         </Stack>

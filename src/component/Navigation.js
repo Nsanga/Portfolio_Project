@@ -10,16 +10,16 @@ function Navigation() {
         <VStack>
             <HStack spacing={420} px={16} py={3}>
                 <Box display="flex" flexDirection="row">
-                    <HStack>
-                        <FaEnvelope /><Link fontWeight="semibold" href="mailto:mercuremekinda@gmail.com" target="_blank">mercuremekinda@gmail.com</Link>
+                    <HStack _hover={{color:"#0080ff", fontWeight:"bold"}}>
+                        <FaEnvelope /><Link fontWeight="semibold" href="mailto:mercuremekinda@gmail.com" target="_blank" _hover={{ textDecoration:"none"}}>mercuremekinda@gmail.com</Link>
                     </HStack>
                 </Box>
                 <Box display="flex" flexDirection="row" gap={4}>
-                    <HStack>
-                        <FaFile /><Link fontWeight="semibold">Mes Réalisations</Link>
+                    <HStack _hover={{color:"#0080ff", fontWeight:"bold"}}>
+                        <FaFile /><Link fontWeight="semibold" _hover={{ textDecoration:"none"}}>Mes Réalisations</Link>
                     </HStack>
-                    <HStack>                    
-                        <FaUser /><Link fontWeight="semibold">CV</Link>
+                    <HStack _hover={{color:"#0080ff", fontWeight:"bold"}}>                    
+                        <FaUser /><Link fontWeight="semibold" _hover={{ textDecoration:"none"}}>CV</Link>
                     </HStack>
                 </Box>
             </HStack>
