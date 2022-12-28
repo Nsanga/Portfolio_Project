@@ -6,11 +6,12 @@ import logo from "../assets/logo.png";
 
 function Footer() {
 
-    const [isNotSmallerScreeen] = useMediaQuery("(min-width:600px)");
+    const [isNotSmallerScreen] = useMediaQuery("(min-width:600px)");
     return (
-        <HStack mt={16} display="flex" justify="space-between">
-            <Box ml={isNotSmallerScreeen?"8":0}><Image src={logo} alt="Alternate Text" width={50} height={50} /></Box>
-            <Box ml={isNotSmallerScreeen?"8":0}><Text>©2022 MercureM. <br/>TOUT DROITS RESERVES</Text></Box>
+        <HStack w="95%" mt={16} display="flex" flexDirection={isNotSmallerScreen?"row":"column"} justify={isNotSmallerScreen?"space-between":"center"}>
+            <Image src={logo} alt="Alternate Text" width={50} height={50} />
+            <Text align="center" fontSize={isNotSmallerScreen ? "12px" : "10px"}>©2022 MercureM. </Text>
+            <Text align="center" fontSize={isNotSmallerScreen ? "12px" : "10px"}>TOUT DROITS RESERVES</Text>
         </HStack>
         
 
