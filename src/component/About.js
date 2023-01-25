@@ -1,6 +1,6 @@
 import React from "react";
 import { useMediaQuery } from "@chakra-ui/media-query";
-import { VStack, Text, Box } from "@chakra-ui/layout";
+import { VStack, Text, Box, Flex } from "@chakra-ui/layout";
 import { Card, Image, CardHeader, CardBody } from "@chakra-ui/react";
 import about from "../assets/about.png";
 
@@ -10,7 +10,7 @@ function About() {
     return (
         <VStack ml={isNotSmallerScreeen ? "0" : "60"} py={10} >
             <br />
-            <Box display="flex" flexDirection="column" gap={4} >
+            <Flex display="flex" flexDirection="column" gap={4} >
                 <Card w={isNotSmallerScreeen ? "65%":"95%"} boxShadow="8px 4px 4px rgba(0, 0, 0, 0.25)" borderRadius="10px">
                     <CardHeader><Text fontFamily='Raleway' fontWeight="semibold" fontSize="30px">A propos de moi</Text>
                         <br /></CardHeader>
@@ -27,7 +27,7 @@ function About() {
                     </CardBody>
 
                 </Card>
-            </Box>
+            </Flex>
 
 
         </VStack>
