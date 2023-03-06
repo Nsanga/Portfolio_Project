@@ -1,9 +1,11 @@
+import React, { useEffect } from "react";
+import axios from 'axios';
 import { IconButton } from "@chakra-ui/button";
 import { useMediaQuery } from "@chakra-ui/media-query";
 import { useColorMode } from "@chakra-ui/color-mode";
 import { Flex, VStack, Heading, Spacer, HStack, Text, Box, Stack } from "@chakra-ui/layout";
 import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
-import { FaSun, FaMoon } from 'react-icons/fa'
+import { FaSun, FaMoon, FaBars } from 'react-icons/fa'
 import { Image, Button } from "@chakra-ui/react";
 import { FaEnvelope, FaFile, FaUser } from "react-icons/fa";
 import { ArrowForwardIcon } from '@chakra-ui/icons'
@@ -14,8 +16,15 @@ import Footer from "../component/Footer";
 import Popovers from "../component/Popovers";
 import realisation from "../assets/realisation.png";
 import { Link } from "react-router-dom";
+import {
+    Menu,
+    MenuButton,
+    MenuList,
+    MenuItem
+} from '@chakra-ui/react'
 import realisations from "../assets/realisations.png";
 import Carousel from "react-elastic-carousel";
+import Gmail from "../component/Gmail";
 
 const breakPoints = [
     { width: 1, itemsToShow: 1 },
@@ -25,11 +34,31 @@ const breakPoints = [
 
 
 function Realisation() {
+    const [data, setData] = React.useState([]);
+    const [dataProjet, setDataProjet] = React.useState([]);
 
     const { colorMode, toggleColorMode } = useColorMode();
     const isDark = colorMode === "dark";
 
     const [isNotSmallerScreen] = useMediaQuery("(min-width:600px)");
+
+    useEffect(() => {
+        axios.get("http://localhost:5000/api/auth/profile")
+        .then(response => {
+          console.log("Realisation ::", response.data.data);
+          setData(response.data.data)
+     
+      })
+      .catch(err => console.log(err));
+
+      axios.get("http://localhost:5000/api/projet/getAll")
+        .then(response => {
+          console.log("Projet ::", response.data.data);
+          setDataProjet(response.data.data)
+     
+      })
+      .catch(err => console.log(err));
+}, [])
 
     return (
         <VStack p={5}>
@@ -43,20 +72,42 @@ function Realisation() {
                         </Heading>
                         <Spacer></Spacer><Spacer></Spacer><Spacer></Spacer>
                         <HStack display={isNotSmallerScreen ? "flex" : "none"} fontFamily='Raleway' _hover={{ color: "#0080ff", fontFamily: 'Raleway', fontWeight: "bold" }} px={isNotSmallerScreen ? "20" : "0"}>
-                            <FaEnvelope /><Link href="mailto:mercuremekinda@gmail.com" target="_blank"
-                                _hover={{ textDecoration: "none" }}>mercuremekinda@gmail.com</Link>
+                            <FaEnvelope /><Gmail/>
                         </HStack></HStack>
 
                     <Spacer></Spacer>
-                    <HStack fontFamily='Raleway' _hover={{ color: "#0080ff", fontFamily: 'Raleway', fontWeight: "bold" }}>
+                    <HStack display={isNotSmallerScreen ? "flex" : "none"} fontFamily='Raleway' _hover={{ color: "#0080ff", fontFamily: 'Raleway', fontWeight: "bold" }}>
                         <FaFile /><Link to="/realisation" display={isNotSmallerScreen ? "flex" : "none"} _hover={{ textDecoration: "none" }}>Mes Réalisations</Link>
                     </HStack>
 
-                    <HStack ml={isNotSmallerScreen ? "8" : "4"} fontFamily='Raleway' _hover={{ color: "#0080ff", fontFamily: 'Raleway', fontWeight: "bold" }}>
+                    <HStack display={isNotSmallerScreen ? "flex" : "none"} ml={isNotSmallerScreen ? "8" : "4"} fontFamily='Raleway' _hover={{ color: "#0080ff", fontFamily: 'Raleway', fontWeight: "bold" }}>
                         <FaUser /><Link to="/cv" display={isNotSmallerScreen ? "flex" : "none"} _hover={{ textDecoration: "none" }}>CV</Link>
                     </HStack>
 
-                    <IconButton m={8} icon={isDark ? <FaSun /> : <FaMoon />} isRound='true' onClick={toggleColorMode}></IconButton>
+                    <HStack>
+                        <IconButton m={8} icon={isDark ? <FaSun /> : <FaMoon />} isRound='true' onClick={toggleColorMode}></IconButton>
+
+                        <Box display={isNotSmallerScreen ? "none" : "block"}>
+                            <Menu>{({ isOpen }) => (
+                                <>
+                                    <MenuButton isActive={isOpen}
+                                        as={IconButton}
+                                        aria-label='Options'
+                                        icon={<FaBars />}
+                                        bg="transparent"
+                                        fontSize={30}
+                                    >
+                                        {isOpen ? 'Close' : 'Open'}
+                                    </MenuButton>
+                                    <MenuList>
+                                        <MenuItem icon={<FaEnvelope />} as="a" href="mailto:mercuremekinda@gmail.com" target="_blank" _hover={{ textDecoration: "none" }}>mercuremekinda@gmail.com
+                                        </MenuItem>
+                                        <MenuItem icon={<FaUser />} as={Link} to="/cv" _hover={{ textDecoration: "none" }}>CV
+                                        </MenuItem>
+                                    </MenuList>
+                                </>
+                            )}
+                            </Menu></Box> </HStack>
                 </Flex>
 
                 <Flex direction={isNotSmallerScreen ? "row" : "column"}
@@ -67,10 +118,8 @@ function Realisation() {
                             mt={isNotSmallerScreen ? "8" : "0"}>Mes réalisations</Text>
                         <Text w={isNotSmallerScreen ? "70%" : "98%"} fontFamily='Raleway' fontWeight="medium" fontSize={isNotSmallerScreen ? "18px" : "15px"}
                             mt={isNotSmallerScreen ? "4" : "0"}>
-                            Siégeant au Cameroun, je développe des applications web et applications mobiles entièrement sur mesure.
-                            Je realise également des prestations de maintenance, hébergement et optimisation de référencement (SEO).
-                            Découvrez mes projets développés ou maintenus, toujours en étroite collaboration avec des clients.
-                        </Text>
+                            {data.desc_realisation}
+                            </Text>
 
                         <Popovers></Popovers>
 
@@ -87,9 +136,11 @@ function Realisation() {
 
                 <Carousel breakPoints={breakPoints}>
 
-                    <Card maxW='sm' _hover={{ color: "#ffffff", background: "#0080ff", transform: "translateY(-10px)" }}>
+                {dataProjet.filter(item => item.type === 'web').map((item) =>(
+                    <Card maxW='sm' _hover={{ color: "#ffffff", background: "#0080ff", transform: "translateY(-10px)" }} key={item.id_Projet}>
+                    
                         <CardHeader>
-                            <Heading fontFamily='Raleway' size='lg'> Portfolio</Heading>
+                            <Heading fontFamily='Raleway' size='lg'> {item.nom}</Heading>
                         </CardHeader>
                         <CardBody>
                             <Image
@@ -99,9 +150,7 @@ function Realisation() {
                             />
                             <Stack mt='6' alignSelf="center">
                                 <Text fontFamily='Raleway'>
-                                    This sofa is perfect for modern tropical spaces, baroque inspired
-                                    spaces, earthy toned spaces and for people who love a chic design with a
-                                    sprinkle of vintage design.
+                                    {item.description}
                                 </Text>
                             </Stack>
                         </CardBody>
@@ -109,108 +158,9 @@ function Realisation() {
                         <CardFooter alignSelf="flex-end">
                             <IconButton icon={<ArrowForwardIcon />} isRound='true' variant='outline' colorScheme='auto' aria-label='Call Sage' fontSize='20px'></IconButton>
                         </CardFooter>
-
+                    
                     </Card>
-
-                    <Card maxW='sm' _hover={{ color: "#ffffff", background: "#0080ff", transform: "translateY(-10px)" }}>
-                        <CardHeader>
-                            <Heading fontFamily='Raleway' size='lg'> Portfolio</Heading>
-                        </CardHeader>
-                        <CardBody>
-                            <Image
-                                src={realisation}
-                                alt='Green double couch with wooden legs'
-                                borderRadius='xl'
-                            />
-                            <Stack mt='6' alignSelf="center">
-                                <Text fontFamily='Raleway'>
-                                    This sofa is perfect for modern tropical spaces, baroque inspired
-                                    spaces, earthy toned spaces and for people who love a chic design with a
-                                    sprinkle of vintage design.
-                                </Text>
-                            </Stack>
-                        </CardBody>
-
-                        <CardFooter alignSelf="flex-end">
-                            <IconButton icon={<ArrowForwardIcon />} isRound='true' variant='outline' colorScheme='auto' aria-label='Call Sage' fontSize='20px'></IconButton>
-                        </CardFooter>
-
-                    </Card>
-
-                    <Card maxW='sm' _hover={{ color: "#ffffff", background: "#0080ff", transform: "translateY(-10px)" }}>
-                        <CardHeader>
-                            <Heading fontFamily='Raleway' size='lg'> Portfolio</Heading>
-                        </CardHeader>
-                        <CardBody>
-                            <Image
-                                src={realisation}
-                                alt='Green double couch with wooden legs'
-                                borderRadius='xl'
-                            />
-                            <Stack mt='6' alignSelf="center">
-                                <Text fontFamily='Raleway'>
-                                    This sofa is perfect for modern tropical spaces, baroque inspired
-                                    spaces, earthy toned spaces and for people who love a chic design with a
-                                    sprinkle of vintage design.
-                                </Text>
-                            </Stack>
-                        </CardBody>
-
-                        <CardFooter alignSelf="flex-end">
-                            <IconButton icon={<ArrowForwardIcon />} isRound='true' variant='outline' colorScheme='auto' aria-label='Call Sage' fontSize='20px'></IconButton>
-                        </CardFooter>
-
-                    </Card>
-
-                    <Card maxW='sm' _hover={{ color: "#ffffff", background: "#0080ff", transform: "translateY(-10px)" }}>
-                        <CardHeader>
-                            <Heading fontFamily='Raleway' size='lg'> Portfolio</Heading>
-                        </CardHeader>
-                        <CardBody>
-                            <Image
-                                src={realisation}
-                                alt='Green double couch with wooden legs'
-                                borderRadius='xl'
-                            />
-                            <Stack mt='6' alignSelf="center">
-                                <Text fontFamily='Raleway'>
-                                    This sofa is perfect for modern tropical spaces, baroque inspired
-                                    spaces, earthy toned spaces and for people who love a chic design with a
-                                    sprinkle of vintage design.
-                                </Text>
-                            </Stack>
-                        </CardBody>
-
-                        <CardFooter alignSelf="flex-end">
-                            <IconButton icon={<ArrowForwardIcon />} isRound='true' variant='outline' colorScheme='auto' aria-label='Call Sage' fontSize='20px'></IconButton>
-                        </CardFooter>
-
-                    </Card>
-
-                    <Card maxW='sm' _hover={{ color: "#ffffff", background: "#0080ff", transform: "translateY(-10px)" }}>
-                        <CardHeader>
-                            <Heading fontFamily='Raleway' size='lg'> Portfolio</Heading>
-                        </CardHeader>
-                        <CardBody>
-                            <Image
-                                src={realisation}
-                                alt='Green double couch with wooden legs'
-                                borderRadius='xl'
-                            />
-                            <Stack mt='6' alignSelf="center">
-                                <Text fontFamily='Raleway'>
-                                    This sofa is perfect for modern tropical spaces, baroque inspired
-                                    spaces, earthy toned spaces and for people who love a chic design with a
-                                    sprinkle of vintage design.
-                                </Text>
-                            </Stack>
-                        </CardBody>
-
-                        <CardFooter alignSelf="flex-end">
-                            <IconButton icon={<ArrowForwardIcon />} isRound='true' variant='outline' colorScheme='auto' aria-label='Call Sage' fontSize='20px'></IconButton>
-                        </CardFooter>
-
-                    </Card>
+                    ))}
 
                 </Carousel>
 
@@ -223,9 +173,11 @@ function Realisation() {
 
                 <Carousel breakPoints={breakPoints} >
 
-                    <Card maxW='sm' _hover={{ color: "#ffffff", background: "#0080ff", transform: "translateY(-10px)" }}>
+                {dataProjet.filter(item => item.type === 'mobile').map((item) =>(
+                    <Card maxW='sm' _hover={{ color: "#ffffff", background: "#0080ff", transform: "translateY(-10px)" }} key={item.id_Projet}>
+                    
                         <CardHeader>
-                            <Heading fontFamily='Raleway' size='lg'> Portfolio</Heading>
+                            <Heading fontFamily='Raleway' size='lg'> {item.nom}</Heading>
                         </CardHeader>
                         <CardBody>
                             <Image
@@ -235,9 +187,7 @@ function Realisation() {
                             />
                             <Stack mt='6' alignSelf="center">
                                 <Text fontFamily='Raleway'>
-                                    This sofa is perfect for modern tropical spaces, baroque inspired
-                                    spaces, earthy toned spaces and for people who love a chic design with a
-                                    sprinkle of vintage design.
+                                    {item.description}
                                 </Text>
                             </Stack>
                         </CardBody>
@@ -245,108 +195,9 @@ function Realisation() {
                         <CardFooter alignSelf="flex-end">
                             <IconButton icon={<ArrowForwardIcon />} isRound='true' variant='outline' colorScheme='auto' aria-label='Call Sage' fontSize='20px'></IconButton>
                         </CardFooter>
-
+                    
                     </Card>
-
-                    <Card maxW='sm' _hover={{ color: "#ffffff", background: "#0080ff", transform: "translateY(-10px)" }}>
-                        <CardHeader>
-                            <Heading fontFamily='Raleway' size='lg'> Portfolio</Heading>
-                        </CardHeader>
-                        <CardBody>
-                            <Image
-                                src={realisation}
-                                alt='Green double couch with wooden legs'
-                                borderRadius='xl'
-                            />
-                            <Stack mt='6' alignSelf="center">
-                                <Text fontFamily='Raleway'>
-                                    This sofa is perfect for modern tropical spaces, baroque inspired
-                                    spaces, earthy toned spaces and for people who love a chic design with a
-                                    sprinkle of vintage design.
-                                </Text>
-                            </Stack>
-                        </CardBody>
-
-                        <CardFooter alignSelf="flex-end">
-                            <IconButton icon={<ArrowForwardIcon />} isRound='true' variant='outline' colorScheme='auto' aria-label='Call Sage' fontSize='20px'></IconButton>
-                        </CardFooter>
-
-                    </Card>
-
-                    <Card maxW='sm' _hover={{ color: "#ffffff", background: "#0080ff", transform: "translateY(-10px)" }}>
-                        <CardHeader>
-                            <Heading fontFamily='Raleway' size='lg'> Portfolio</Heading>
-                        </CardHeader>
-                        <CardBody>
-                            <Image
-                                src={realisation}
-                                alt='Green double couch with wooden legs'
-                                borderRadius='xl'
-                            />
-                            <Stack mt='6' alignSelf="center">
-                                <Text fontFamily='Raleway'>
-                                    This sofa is perfect for modern tropical spaces, baroque inspired
-                                    spaces, earthy toned spaces and for people who love a chic design with a
-                                    sprinkle of vintage design.
-                                </Text>
-                            </Stack>
-                        </CardBody>
-
-                        <CardFooter alignSelf="flex-end">
-                            <IconButton icon={<ArrowForwardIcon />} isRound='true' variant='outline' colorScheme='auto' aria-label='Call Sage' fontSize='20px'></IconButton>
-                        </CardFooter>
-
-                    </Card>
-
-                    <Card maxW='sm' _hover={{ color: "#ffffff", background: "#0080ff", transform: "translateY(-10px)" }}>
-                        <CardHeader>
-                            <Heading fontFamily='Raleway' size='lg'> Portfolio</Heading>
-                        </CardHeader>
-                        <CardBody>
-                            <Image
-                                src={realisation}
-                                alt='Green double couch with wooden legs'
-                                borderRadius='xl'
-                            />
-                            <Stack mt='6' alignSelf="center">
-                                <Text fontFamily='Raleway'>
-                                    This sofa is perfect for modern tropical spaces, baroque inspired
-                                    spaces, earthy toned spaces and for people who love a chic design with a
-                                    sprinkle of vintage design.
-                                </Text>
-                            </Stack>
-                        </CardBody>
-
-                        <CardFooter alignSelf="flex-end">
-                            <IconButton icon={<ArrowForwardIcon />} isRound='true' variant='outline' colorScheme='auto' aria-label='Call Sage' fontSize='20px'></IconButton>
-                        </CardFooter>
-
-                    </Card>
-
-                    <Card maxW='sm' _hover={{ color: "#ffffff", background: "#0080ff", transform: "translateY(-10px)" }}>
-                        <CardHeader>
-                            <Heading fontFamily='Raleway' size='lg'> Portfolio</Heading>
-                        </CardHeader>
-                        <CardBody>
-                            <Image
-                                src={realisation}
-                                alt='Green double couch with wooden legs'
-                                borderRadius='xl'
-                            />
-                            <Stack mt='6' alignSelf="center">
-                                <Text fontFamily='Raleway'>
-                                    This sofa is perfect for modern tropical spaces, baroque inspired
-                                    spaces, earthy toned spaces and for people who love a chic design with a
-                                    sprinkle of vintage design.
-                                </Text>
-                            </Stack>
-                        </CardBody>
-
-                        <CardFooter alignSelf="flex-end">
-                            <IconButton icon={<ArrowForwardIcon />} isRound='true' variant='outline' colorScheme='auto' aria-label='Call Sage' fontSize='20px'></IconButton>
-                        </CardFooter>
-
-                    </Card>
+                    ))}
 
                 </Carousel>
 

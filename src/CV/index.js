@@ -1,8 +1,10 @@
+import React, { useEffect } from "react";
+import axios from 'axios';
 import { IconButton } from "@chakra-ui/button";
 import { useMediaQuery } from "@chakra-ui/media-query";
 import { useColorMode } from "@chakra-ui/color-mode";
 import { Flex, VStack, Heading, Spacer, HStack, Text, Divider, Box } from "@chakra-ui/layout";
-import { FaSun, FaMoon } from 'react-icons/fa'
+import { FaSun, FaMoon, FaBars } from 'react-icons/fa'
 import { Image, Button } from "@chakra-ui/react";
 import { FaEnvelope, FaFile, FaUser, FaDownload } from "react-icons/fa";
 import logo from "../assets/logo.png";
@@ -12,16 +14,72 @@ import Foot from "../component/Foot";
 import Social from "../component/Social";
 import Footer from "../component/Footer";
 import { Link } from "react-router-dom";
-import { Avatar } from '@chakra-ui/react'
+import {
+    Menu,
+    MenuButton,
+    MenuList,
+    MenuItem
+} from '@chakra-ui/react';
+import Gmail from "../component/Gmail";
+import { Avatar } from '@chakra-ui/react';
 
 
 
 function Cv() {
+    const [data, setData] = React.useState([]);
+    const [dataExp, setDataExp] = React.useState([]);
+    const [dataEd, setDataEd] = React.useState([]);
+    const [dataCom, setDataCom] = React.useState([]);
+    const [dataLog, setDataLog] = React.useState([]);
 
     const { colorMode, toggleColorMode } = useColorMode();
     const isDark = colorMode === "dark";
 
     const [isNotSmallerScreen] = useMediaQuery("(min-width:600px)");
+
+    useEffect(() => {
+        axios.get("http://localhost:5000/api/realisation/1")
+        .then(response => {
+          console.log("DescriptionCV ::", response.data.data);
+          setData(response.data.data)
+     
+      })
+      .catch(err => console.log(err));
+
+      axios.get("http://localhost:5000/api/experience/getAll")
+        .then(response => {
+          console.log("DescriptionCV ::", response.data.data);
+          setDataExp(response.data.data)
+     
+      })
+      .catch(err => console.log(err));
+
+      axios.get("http://localhost:5000/api/education/getAll")
+        .then(response => {
+          console.log("Education ::", response.data.data);
+          setDataEd(response.data.data)
+     
+      })
+      .catch(err => console.log(err));
+
+      axios.get("http://localhost:5000/api/competence/getAll")
+        .then(response => {
+          console.log("Competence ::", response.data.data);
+          setDataCom(response.data.data)
+     
+      })
+      .catch(err => console.log(err));
+
+      axios.get("http://localhost:5000/api/logiciel/getAll")
+        .then(response => {
+          console.log("logiciels ::", response.data.data);
+          setDataLog(response.data.data)
+     
+      })
+      .catch(err => console.log(err));
+      
+      }, [])
+      
 
     return (
         <VStack p={5}>
@@ -35,118 +93,114 @@ function Cv() {
                         </Heading>
                         <Spacer></Spacer><Spacer></Spacer><Spacer></Spacer>
                         <HStack display={isNotSmallerScreen ? "flex" : "none"} fontFamily='Raleway' _hover={{ color: "#0080ff", fontFamily: 'Raleway', fontWeight: "bold" }} px={isNotSmallerScreen ? "20" : "0"}>
-                            <FaEnvelope /><Link href="mailto:mercuremekinda@gmail.com" target="_blank"
-                                _hover={{ textDecoration: "none" }}>mercuremekinda@gmail.com</Link>
+                            <FaEnvelope /><Gmail/>
                         </HStack></HStack>
 
                     <Spacer></Spacer>
-                    <HStack fontFamily='Raleway' _hover={{ color: "#0080ff", fontFamily: 'Raleway', fontWeight: "bold" }}>
+                    <HStack display={isNotSmallerScreen ? "flex" : "none"} fontFamily='Raleway' _hover={{ color: "#0080ff", fontFamily: 'Raleway', fontWeight: "bold" }}>
                         <FaFile /><Link to="/realisation" display={isNotSmallerScreen ? "flex" : "none"} _hover={{ textDecoration: "none" }}>Mes Réalisations</Link>
                     </HStack>
 
-                    <HStack ml={isNotSmallerScreen ? "8" : "4"} fontFamily='Raleway' _hover={{ color: "#0080ff", fontFamily: 'Raleway', fontWeight: "bold" }}>
+                    <HStack display={isNotSmallerScreen ? "flex" : "none"} ml={isNotSmallerScreen ? "8" : "4"} fontFamily='Raleway' _hover={{ color: "#0080ff", fontFamily: 'Raleway', fontWeight: "bold" }}>
                         <FaUser /><Link to="/cv" display={isNotSmallerScreen ? "flex" : "none"} _hover={{ textDecoration: "none" }}>CV</Link>
                     </HStack>
 
-                    <IconButton m={8} icon={isDark ? <FaSun /> : <FaMoon />} isRound='true' onClick={toggleColorMode}></IconButton>
+                    <HStack>
+                        <IconButton m={8} icon={isDark ? <FaSun /> : <FaMoon />} isRound='true' onClick={toggleColorMode}></IconButton>
+
+                        <Box display={isNotSmallerScreen ? "none" : "block"}>
+                            <Menu>{({ isOpen }) => (
+                                <>
+                                    <MenuButton isActive={isOpen}
+                                        as={IconButton}
+                                        aria-label='Options'
+                                        icon={<FaBars />}
+                                        bg="transparent"
+                                        fontSize={30}
+                                    >
+                                        {isOpen ? 'Close' : 'Open'}
+                                    </MenuButton>
+                                    <MenuList>
+                                        <MenuItem icon={<FaEnvelope />} as="a" href="mailto:mercuremekinda@gmail.com" target="_blank" _hover={{ textDecoration: "none" }}>mercuremekinda@gmail.com
+                                        </MenuItem>
+                                        <MenuItem icon={<FaFile />} as={Link} to="/realisation" _hover={{ textDecoration: "none" }}>Mes Réalisations
+                                        </MenuItem>
+                                    </MenuList>
+                                </>
+                            )}
+                            </Menu></Box> </HStack>
                 </Flex>
 
                 <SocialWork></SocialWork>
 
-                <Flex w="80%" px={16}>
-                <Image
+                <Flex w={isNotSmallerScreen ? "80%" : "100%"} px={isNotSmallerScreen ? 16 : 2}>
+                <Box w='28%'> <Image mt={isNotSmallerScreen ? 'none' : 4}
                 borderRadius='full'
-                boxSize='170px'
+                boxSize={isNotSmallerScreen ? '170px' : '122px'}
                 src={cv}
                 alt='Mercure Mekinda'
                 bg="transparent"
-                />
+                /></Box>
 
-                    <Flex direction="column" px={8} py={4}>
+                    <Flex direction="column" px={6} py={4}>
 
-                        <Heading as='h1' size='md' mb={4} fontFamily='Raleway'>NSANGA MEKINDA Emmanuel Mercure</Heading>
-                        <Text fontSize='lg' mb={8} fontWeight="semibold" fontFamily='Raleway' fontStyle="italic">Développeur Full Stack</Text><Spacer></Spacer>
-                        <Text fontSize='md' mb={4} fontWeight="medium" fontFamily='Raleway' fontStyle="italic" color="#c0c0c0">Je développe des applications web et applications mobiles entièrement sur mesure
-                            qui ravissent les clients grâce  à un mélange d'expériences d'ingénierie et de conception frontales.</Text>
+                        <Heading as='h1' fontSize={isNotSmallerScreen ? 'md' : '14px'} mb={4} fontFamily='Raleway'>{data.nom}</Heading>
+                        <Text fontSize={isNotSmallerScreen ? 'lg' : 'sm'} mb={isNotSmallerScreen ? 8 : 4} fontWeight="semibold" fontFamily='Raleway' fontStyle="italic">{data.metier}</Text><Spacer></Spacer>
+                        <Text fontSize={isNotSmallerScreen ? 'md' : '10px'} mb={4} fontWeight="medium" fontFamily='Raleway' fontStyle="italic" color="#c0c0c0">{data.description}</Text>
                     </Flex>
 
                 </Flex>
                 <Spacer></Spacer><Divider w="85%" display="flex" alignSelf="flex-end" mb={8} borderBottom="1px solid #808080"/>
 
-                <Flex w="70%" justify="space-between" py={8}>
-                    <Box display="flex" flexDirection="column" gap={10}>
+                <Flex w={isNotSmallerScreen ? "100%" : "100%"} justifyContent="center" py={8} 
+                fontSize={isNotSmallerScreen ? 'md' : '12px'} fontFamily='Raleway'>
+                    <Box display="flex" flexDirection="column" gap={10} ml={isNotSmallerScreen ? 'none' : 16}>
                         <Box display="flex" flexDirection="column" gap={2}>
-                            <Text fontFamily='Raleway' fontWeight="bold" color="#7F7F7F" mb={4}>Experience</Text>
-                            <Text fontFamily='Raleway' fontWeight="semibold">Stealth Startup</Text>
-                            <Text fontFamily='Raleway' color="#c0c0c0">Product Desion Lead | 2017 - Prosent</Text>
-                            <Text fontFamily='Raleway' fontWeight="medium">- Started and scaled design beam to 6 praduct desioners<br />
-                                - Greated a web application desian svster<br />
-                                - Scaled business to S120m in ARR<br />
-                                - Built internal laveling system and career laduer</Text>
+                            <Text fontWeight="bold" color="#7F7F7F" mb={4}>Experience</Text>
+                            {dataExp.map((item) =>(
+                            <Box key={item.id_Experience}>
+                                <Text fontWeight="semibold">{item.nom}</Text>
+                                <Text color="#c0c0c0">{item.poste} | {item.annee}</Text>
+                                {item.tache.split("\n").map((line, index) => (
+                                <Text fontWeight="medium" key={index}>- {line}</Text>
+                                ))}
+                            </Box>
+                            ))}
                         </Box>
 
-                        <Box display="flex" flexDirection="column" gap={2}>
-                            <Text fontFamily='Raleway' fontWeight="semibold">Apple</Text>
-                            <Text fontFamily='Raleway' color="#c0c0c0">Senior Product Designer | 2014 - 2017</Text>
-                            <Text fontFamily='Raleway' fontWeight="medium">- Built the first iteration of Apple Pay<br />
-                                -Partnered with credit card networks to build infrastructure<br />
-                                -Led trie creation ol Apple's paymont products<br />
-                                -Drove 383m customers to use Apple Pay</Text>
-                        </Box>
-
-                        <Box display="flex" flexDirection="column" gap={2}>
-                            <Text fontFamily='Raleway' fontWeight="semibold">Apple</Text>
-                            <Text fontFamily='Raleway' color="#c0c0c0">Senior Product Designer | 2014 - 2017</Text>
-                            <Text fontFamily='Raleway' fontWeight="medium">- Built the first iteration of Apple Pay<br />
-                                -Partnered with credit card networks to build infrastructure<br />
-                                -Led trie creation ol Apple's paymont products<br />
-                                -Drove 383m customers to use Apple Pay</Text>
-                        </Box>
-
-                        <Box display="flex" flexDirection="column" gap={2}>
-                            <Text fontFamily='Raleway' fontWeight="semibold">Apple</Text>
-                            <Text fontFamily='Raleway' color="#c0c0c0">Senior Product Designer | 2014 - 2017</Text>
-                            <Text fontFamily='Raleway' fontWeight="medium">- Built the first iteration of Apple Pay<br />
-                                -Partnered with credit card networks to build infrastructure<br />
-                                -Led trie creation ol Apple's paymont products<br />
-                                -Drove 383m customers to use Apple Pay</Text>
-                        </Box>
                     </Box>
 
-                    <Box display="flex" flexDirection="column" gap={10}>
+                    <Box display="flex" flexDirection="column" gap={10} px={isNotSmallerScreen ? 16 : 4}>
                         <Box display="flex" flexDirection="column" gap={2}>
-                            <Text fontFamily='Raleway' fontWeight="bold" color="#7F7F7F" mb={4}>Education</Text>
-                            <Text fontFamily='Raleway' fontWeight="semibold">Institut Africain d'Informatiques</Text>
-                            <Text fontFamily='Raleway' fontWeight="medium" color="#c0c0c0">Licence professionnelle<br />
-                                2021-2022</Text>
+                            <Text fontWeight="bold" color="#7F7F7F" mb={4}>Education</Text>
+                            {dataEd.map((item) =>( 
+                            <Box key={item.id_Comptence}> 
+                                <Text fontWeight="semibold" >{item.nom}</Text>
+                                <Text fontWeight="medium" color="#c0c0c0">{item.diplome}<br />
+                                {item.annee}</Text>
+                            </Box>
+                            ))}
                         </Box>
 
                         <Box display="flex" flexDirection="column" gap={2}>
-                            <Text fontFamily='Raleway' fontWeight="bold" color="#7F7F7F" mb={4}>Realisations</Text>
-                            <Text fontFamily='Raleway' fontWeight="medium">Team leadership<br/></Text>
+                            <Text fontWeight="bold" color="#7F7F7F" mb={4}>Realisations</Text>
+                            <Text fontWeight="medium">Team leadership<br/></Text>
                         </Box>
 
                         <Box display="flex" flexDirection="column" gap={2}>
-                            <Text fontFamily='Raleway' fontWeight="bold" color="#7F7F7F" mb={4}>compétences</Text>
-                            <Text fontFamily='Raleway' fontWeight="medium">Team leadership<br/>
-                            Rapid prototyping<br/>
-                            Systems desian<br/>
-                            Prasentation<br/>
-                            Written communication</Text>
+                            <Text fontWeight="bold" color="#7F7F7F" mb={4}>compétences</Text>
+                            {dataCom.map((item) =>( 
+                            <Text fontWeight="medium" key={item.id_Comptence}>{item.nom}<br/></Text>
+                            ))}
                         </Box>
 
                         <Box display="flex" flexDirection="column" gap={2}>
-                            <Text fontFamily='Raleway' fontWeight="bold" color="#7F7F7F" mb={4}>Logiciels et applications</Text>
-                            <Text fontFamily='Raleway' fontWeight="medium">
-                                Figma<br/>
-                                After Effects<br/>
-                                Photoshop<br/>
-                                Illustrator<br/>
-                                HTML<br/>
-                                CSS<br/>
-                                JavaScript<br/>
-                                React JS
-                            </Text>
+                            <Text fontWeight="bold" color="#7F7F7F" mb={4}>Logiciels et applications</Text>
+                            {dataLog.map((item) =>(
+                                <Text fontWeight="medium" key={item.id_Logiciel}>
+                                    {item.nom}<br/>
+                                </Text>
+                            ))}
                         </Box>
                     </Box>
                 </Flex>

@@ -24,7 +24,8 @@ import {
   MenuGroup,
   MenuOptionGroup,
   MenuDivider,
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
+import Gmail from "../component/Gmail";
 
 
 
@@ -34,6 +35,7 @@ function Home() {
   const isDark = colorMode === "dark";
 
   const [isNotSmallerScreen] = useMediaQuery("(min-width:600px)");
+  
 
   return (
     <VStack p={5}>
@@ -47,8 +49,7 @@ function Home() {
             </Heading>
             <Spacer></Spacer><Spacer></Spacer><Spacer></Spacer>
             <HStack display={isNotSmallerScreen ? "flex" : "none"} fontFamily='Raleway' _hover={{ color: "#0080ff", fontFamily: 'Raleway', fontWeight: "bold" }} px={isNotSmallerScreen ? "20" : "0"}>
-              <FaEnvelope /><Link href="mailto:mercuremekinda@gmail.com" target="_blank"
-                _hover={{ textDecoration: "none" }}>mercuremekinda@gmail.com</Link>
+              <FaEnvelope /><Gmail/>
             </HStack></HStack>
 
           <Spacer></Spacer>
@@ -76,14 +77,11 @@ function Home() {
             {isOpen ? 'Close' : 'Open'}
             </MenuButton>
             <MenuList>
-              <MenuItem icon={<FaEnvelope />}>
-                <Link href="mailto:mercuremekinda@gmail.com" target="_blank" _hover={{ textDecoration: "none" }}>mercuremekinda@gmail.com</Link>
+              <MenuItem icon={<FaEnvelope />} as="a" href="mailto:mercuremekinda@gmail.com" target="_blank" _hover={{ textDecoration: "none" }}>mercuremekinda@gmail.com
               </MenuItem>
-              <MenuItem icon={<FaFile />} onClick={() => this.onClickSubmit}>
-                <Link to="/realisation" display={isNotSmallerScreen ? "flex" : "none"} _hover={{ textDecoration: "none" }}>Mes Réalisations</Link>
+              <MenuItem icon={<FaFile />} as={Link} to="/realisation" _hover={{ textDecoration: "none" }}>Mes Réalisations
               </MenuItem>
-              <MenuItem icon={<FaUser />}>
-                <Link to="/cv" display={isNotSmallerScreen ? "flex" : "none"} _hover={{ textDecoration: "none" }}>CV</Link>
+              <MenuItem icon={<FaUser />} as={Link} to="/cv" _hover={{ textDecoration: "none" }}>CV
               </MenuItem>
             </MenuList>
             </>

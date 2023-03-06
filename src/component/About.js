@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
+import axios from 'axios';
 import { useMediaQuery } from "@chakra-ui/media-query";
 import { VStack, Text, Box, Flex } from "@chakra-ui/layout";
 import { Card, Image, CardHeader, CardBody } from "@chakra-ui/react";
 import about from "../assets/about.png";
 
 function About() {
+    const [data, setData] = React.useState([]);
 
     const [isNotSmallerScreeen] = useMediaQuery("(min-width:600px)");
+
+    useEffect(() => {
+        axios.get("http://localhost:5000/api/auth/profile")
+        .then(response => {
+          console.log("About ::", response.data.data);
+          setData(response.data.data)
+     
+      })
+}, [])
+
     return (
         <VStack ml={isNotSmallerScreeen ? "0" : "60"} py={10} >
             <br />
@@ -19,9 +31,9 @@ function About() {
                             <Image src={about} alt="Alternate Text" />
                         </Box>
                         <Box w={isNotSmallerScreeen ?"543px":"390px"} alignSelf="center">
-                            <Text fontFamily='Raleway' fontWeight="medium" fontSize={isNotSmallerScreeen ? "15px":"12px" }>Ingénieur des Travaux Informatiques option Génie Logiciel, je suis un développeur full stack et au même titre un web designer.<br />
-                                <br />En plus de participer à de nombreux programmes technologiques où j’ai été formé pour avoir à la fois des compétences techniques et générales, j’ai acquis des connaissances de programmation de haut niveau en suivant des formations en ligne sur LinkedIn E-learning, en obtenant un certificat Figma et un certificat JavaScript respectivement.<br />
-                                <br />Quand je ne code pas je joue à un jeu vidéo ou je regarde un film.<br />A certains moment j’apprends une nouvelle langue ou un nouveau cadre.</Text>
+                            <Text fontFamily='Raleway' fontWeight="medium" fontSize={isNotSmallerScreeen ? "15px":"12px" }>
+                                {data.about_description}
+                            </Text>
 
                         </Box>
                     </CardBody>

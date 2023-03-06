@@ -6,6 +6,8 @@ import { useMediaQuery } from '@chakra-ui/media-query';
 import bulle from "../assets/bulle.png";
 import avatar from "../assets/avatar.png";
 import React from 'react'
+import { useEffect } from 'react';
+import axios from 'axios';
 
 
 function Header() {
@@ -15,6 +17,18 @@ function Header() {
 
     const [isNotSmallerScreen] = useMediaQuery("(min-width:600px)");
 
+    const [data, setData] = React.useState([]);
+    useEffect(() => {
+
+        axios.get("http://localhost:5000/api/auth/profile")
+        .then(response => {
+          console.log("ProfileAcc ::", response);
+          setData(response.data.data)
+
+            })
+            .catch(err => console.log(err));
+    }, [])
+
     return (
         <Stack>
             <Flex direction={isNotSmallerScreen ? "row" : "column"}
@@ -23,9 +37,9 @@ function Header() {
                 <Box mt={isNotSmallerScreen ? "0" : 16} align='flex-end' >
                     <Text display={isNotSmallerScreen ? "none" : "flex"} fontSize="5xl" fontWeight="semibold" mb={8}>Hello, c'est moi</Text>
                     <Image src={bulle} alt="Alternate Text" display={isNotSmallerScreen ? "flex" : "none"} />
-                    <Text fontFamily="EB Garamond" fontStyle="normal" fontWeight="bold" fontSize="64px" mt={-8}>MercureM</Text>
-                    <Text fontFamily='Raleway' fontWeight="semibold" fontSize={isNotSmallerScreen ? "36px" : "25px"} mt={isNotSmallerScreen ? "8" : "0"}>Développeur Full Stack <br /> & Web designer</Text>
-                    <Text fontFamily='Raleway' fontWeight="medium" fontSize={isNotSmallerScreen ? "23px" : "20px"} mt={isNotSmallerScreen ? "4" : "0"}>Développeur de logiciels et webdesigner à Yaoundé, au Cameroun avec une expérience dans la création d’applications avec des technologies modernes.</Text>
+                    <Text fontFamily="EB Garamond" fontStyle="normal" fontWeight="bold" fontSize="64px" mt={-8}>{data.nom}</Text>
+                    <Text fontFamily='Raleway' fontWeight="semibold" fontSize={isNotSmallerScreen ? "36px" : "25px"} mt={isNotSmallerScreen ? "8" : "0"}>{data.metier}</Text>
+                    <Text fontFamily='Raleway' fontWeight="medium" fontSize={isNotSmallerScreen ? "23px" : "20px"} mt={isNotSmallerScreen ? "4" : "0"}>{data.description}</Text>
                     <Button colorScheme='blue' variant='outline' mt={8}
                     _hover={{ bg: "#0080ff", color: "white" }} onClick={() => window.open("mailto:mercuremekinda@gmail.com")}>Contactez moi</Button>
 
