@@ -4,7 +4,7 @@ import { Image } from '@chakra-ui/image';
 import { Stack, Circle, Flex, Box, Text } from '@chakra-ui/layout';
 import { useMediaQuery } from '@chakra-ui/media-query';
 import bulle from "../assets/bulle.png";
-import avatar from "../assets/avatar.png";
+import PopPop from "../component/PopPop";
 import React from 'react'
 import { useEffect } from 'react';
 import axios from 'axios';
@@ -41,8 +41,7 @@ function Header() {
                     <Text fontFamily='Raleway' fontWeight="semibold" fontSize={isNotSmallerScreen ? "36px" : "25px"} 
                     mt={isNotSmallerScreen ? "8" : "0"} w={isNotSmallerScreen ? "70%" : "65%"}>{data?.metier}</Text>
                     <Text fontFamily='Raleway' fontWeight="medium" fontSize={isNotSmallerScreen ? "23px" : "20px"} mt={isNotSmallerScreen ? "4" : "0"}>{data?.description}</Text>
-                    <Button colorScheme='blue' variant='outline' mt={8}
-                    _hover={{ bg: "#0080ff", color: "white" }} onClick={() => window.open("mailto:mercuremekinda@gmail.com")}>Contactez-moi</Button>
+                    <PopPop></PopPop>
 
 
 
