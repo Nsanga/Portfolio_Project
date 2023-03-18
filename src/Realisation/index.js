@@ -110,22 +110,24 @@ function Realisation() {
                             </Menu></Box> </HStack>
                 </Flex>
 
-                <Flex direction={isNotSmallerScreen ? "row" : "column"}
+                <Flex direction={isNotSmallerScreen ? "row" : "column"} justifyContent="space-between" width={'100%'}
                     spacing="200px" p={isNotSmallerScreen ? "4" : "0"} py={isNotSmallerScreen ? "8" : "0"} px={isNotSmallerScreen ? "8" : "0"}
-                    alignSelf="flex-start">
-                    <Box ml={isNotSmallerScreen ? "none" : "2"}>
+                   >
+                    <Box ml={isNotSmallerScreen ? "none" : "2"} w={isNotSmallerScreen ? "70%" : "98%"}>
                         <Text fontFamily='Raleway' fontWeight="semibold" fontSize={isNotSmallerScreen ? "36px" : "25px"}
                             mt={isNotSmallerScreen ? "8" : "0"}>Mes réalisations</Text>
-                        <Text w={isNotSmallerScreen ? "70%" : "98%"} fontFamily='Raleway' fontWeight="medium" fontSize={isNotSmallerScreen ? "18px" : "15px"}
+                        <Text fontFamily='Raleway' fontWeight="medium" fontSize={isNotSmallerScreen ? "18px" : "15px"}
                             mt={isNotSmallerScreen ? "4" : "0"}>
-                            {data.desc_realisation}
+                            {data?.desc_realisation}
                             </Text>
-
                         <Popovers></Popovers>
 
                     </Box>
-                    <Image mt={isNotSmallerScreen ? "0" : "12"} mb={isNotSmallerScreen ? "0" : "12"} display={isNotSmallerScreen ? "flex" : "none"}
-                        boxSize="300px" src={realisations} />
+                    <Box display={'flex'} flexDirection={'row'} alignItems='center' width={"50%"} justifyContent='center'>
+                        <Image mt={isNotSmallerScreen ? "0" : "12"} mb={isNotSmallerScreen ? "0" : "12"} display={isNotSmallerScreen ? "flex" : "none"}
+                        boxSize="300px" src={data.desc_realisation_image} />
+                    </Box>
+                    
                 </Flex>
 
                 <Box display="flex" flexDirection="column" alignSelf="flex-start" >
@@ -142,7 +144,7 @@ function Realisation() {
                         <CardHeader>
                             <Heading fontFamily='Raleway' size='lg'> {item.nom}</Heading>
                         </CardHeader>
-                        <CardBody>
+                        <CardBody justifyContent="space-around" alignItems="center">
                             <Image
                                 src={realisation}
                                 alt='Green double couch with wooden legs'
@@ -171,7 +173,7 @@ function Realisation() {
                         py={isNotSmallerScreen ? "8" : "0"} px={isNotSmallerScreen ? "8" : "0"} fontSize={isNotSmallerScreen ? "30px" : "25px"}>Des applications Mobiles</Text>
                 </Box>
 
-                <Carousel breakPoints={breakPoints} >
+                <Carousel breakPoints={breakPoints}>
 
                 {dataProjet.filter(item => item.type === 'mobile').map((item) =>(
                     <Card maxW='sm' _hover={{ color: "#ffffff", background: "#0080ff", transform: "translateY(-10px)" }} key={item.id_Projet}>
@@ -179,7 +181,7 @@ function Realisation() {
                         <CardHeader>
                             <Heading fontFamily='Raleway' size='lg'> {item.nom}</Heading>
                         </CardHeader>
-                        <CardBody>
+                        <CardBody justifyContent="space-around" alignItems="center">
                             <Image
                                 src={realisation}
                                 alt='Green double couch with wooden legs'

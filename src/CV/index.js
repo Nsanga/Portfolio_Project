@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import axios from 'axios';
 import { IconButton } from "@chakra-ui/button";
 import { useMediaQuery } from "@chakra-ui/media-query";
@@ -21,6 +21,8 @@ import {
     MenuItem
 } from '@chakra-ui/react';
 import Gmail from "../component/Gmail";
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 import { Avatar } from '@chakra-ui/react';
 
 
@@ -31,11 +33,23 @@ function Cv() {
     const [dataEd, setDataEd] = React.useState([]);
     const [dataCom, setDataCom] = React.useState([]);
     const [dataLog, setDataLog] = React.useState([]);
+    const [dataProjet, setDataProjet] = React.useState([]);
+    const componentRef = useRef();
 
     const { colorMode, toggleColorMode } = useColorMode();
     const isDark = colorMode === "dark";
 
     const [isNotSmallerScreen] = useMediaQuery("(min-width:600px)");
+    useEffect(() => {
+
+        axios.get("http://localhost:5000/api/projet/getAll")
+            .then(response => {
+                console.log("Realisation ::", response.data.data);
+                setDataProjet(response.data.data)
+
+            })
+            .catch(err => console.log(err));
+    }, [])
 
     useEffect(() => {
         axios.get("http://localhost:5000/api/realisation/1")
@@ -77,13 +91,29 @@ function Cv() {
      
       })
       .catch(err => console.log(err));
+      axios.get("http://localhost:5000/api/projet/getAll")
+        .then(response => {
+          console.log("Projet ::", response.data.data);
+          setDataProjet(response.data.data)
+     
+      })
+      .catch(err => console.log(err));
       
-      }, [])
+}, [])
       
+      const handleDownload = () => {
+        var doc = new jsPDF("p", "pt", "a4");
+        doc.html(document.querySelector("#exclude1"), {
+            callback: function(pdf){
+                pdf.save('Nsanga_CV.pdf');
+            }
+        })
+        
+      };
 
     return (
         <VStack p={5}>
-            <VStack w="100%" boxShadow={isNotSmallerScreen ? "0px 4px 15px 10px rgba(0, 0, 0, 0.25)" : "none"} borderRadius="10px">
+            <VStack w="100%" boxShadow={isNotSmallerScreen ? "0px 4px 15px 10px rgba(0, 0, 0, 0.25)" : "none"} borderRadius="10px" ref={componentRef}>
                 <Flex w="95%">
                     <HStack>
                         <Heading>
@@ -133,20 +163,20 @@ function Cv() {
 
                 <SocialWork></SocialWork>
 
-                <Flex w={isNotSmallerScreen ? "80%" : "100%"} px={isNotSmallerScreen ? 16 : 2}>
-                <Box w='28%'> <Image mt={isNotSmallerScreen ? 'none' : 4}
+                <Flex w={isNotSmallerScreen ? "65%" : "100%"} px={isNotSmallerScreen ? 16 : 4}>
+                <Image mt={isNotSmallerScreen ? 'none' : 4}
                 borderRadius='full'
-                boxSize={isNotSmallerScreen ? '170px' : '122px'}
-                src={cv}
+                boxSize={isNotSmallerScreen ? '170px' : '100px'}
+                src={data?.image}
                 alt='Mercure Mekinda'
                 bg="transparent"
-                /></Box>
+                />
 
-                    <Flex direction="column" px={6} py={4}>
+                    <Flex direction="column" px={4} py={4}>
 
-                        <Heading as='h1' fontSize={isNotSmallerScreen ? 'md' : '14px'} mb={4} fontFamily='Raleway'>{data.nom}</Heading>
-                        <Text fontSize={isNotSmallerScreen ? 'lg' : 'sm'} mb={isNotSmallerScreen ? 8 : 4} fontWeight="semibold" fontFamily='Raleway' fontStyle="italic">{data.metier}</Text><Spacer></Spacer>
-                        <Text fontSize={isNotSmallerScreen ? 'md' : '10px'} mb={4} fontWeight="medium" fontFamily='Raleway' fontStyle="italic" color="#c0c0c0">{data.description}</Text>
+                        <Heading as='h1' fontSize={isNotSmallerScreen ? 'md' : '12px'} mb={4} fontFamily='Raleway'>{data?.nom}</Heading>
+                        <Text fontSize={isNotSmallerScreen ? 'lg' : '10px'} mb={isNotSmallerScreen ? 8 : 4} fontWeight="semibold" fontFamily='Raleway' fontStyle="italic">{data?.metier}</Text><Spacer></Spacer>
+                        <Text fontSize={isNotSmallerScreen ? 'md' : '10px'} mb={4} fontWeight="medium" fontFamily='Raleway' fontStyle="italic" color="#c0c0c0">{data?.description}</Text>
                     </Flex>
 
                 </Flex>
@@ -157,12 +187,12 @@ function Cv() {
                     <Box display="flex" flexDirection="column" gap={10} ml={isNotSmallerScreen ? 'none' : 16}>
                         <Box display="flex" flexDirection="column" gap={2}>
                             <Text fontWeight="bold" color="#7F7F7F" mb={4}>Experience</Text>
-                            {dataExp.map((item) =>(
+                            {dataExp?.map((item) =>(
                             <Box key={item.id_Experience}>
                                 <Text fontWeight="semibold">{item.nom}</Text>
                                 <Text color="#c0c0c0">{item.poste} | {item.annee}</Text>
                                 {item.tache.split("\n").map((line, index) => (
-                                <Text fontWeight="medium" key={index}>- {line}</Text>
+                                <Text fontWeight="medium" key={index}>{line}</Text>
                                 ))}
                             </Box>
                             ))}
@@ -173,7 +203,7 @@ function Cv() {
                     <Box display="flex" flexDirection="column" gap={10} px={isNotSmallerScreen ? 16 : 4}>
                         <Box display="flex" flexDirection="column" gap={2}>
                             <Text fontWeight="bold" color="#7F7F7F" mb={4}>Education</Text>
-                            {dataEd.map((item) =>( 
+                            {dataEd?.map((item) =>( 
                             <Box key={item.id_Comptence}> 
                                 <Text fontWeight="semibold" >{item.nom}</Text>
                                 <Text fontWeight="medium" color="#c0c0c0">{item.diplome}<br />
@@ -184,38 +214,41 @@ function Cv() {
 
                         <Box display="flex" flexDirection="column" gap={2}>
                             <Text fontWeight="bold" color="#7F7F7F" mb={4}>Realisations</Text>
-                            <Text fontWeight="medium">Team leadership<br/></Text>
+                            {dataProjet?.map((item) =>(
+                            <Text fontWeight="medium" key={item.id_Projet}>{item.nom}<br/></Text>
+                            ))}
                         </Box>
 
                         <Box display="flex" flexDirection="column" gap={2}>
                             <Text fontWeight="bold" color="#7F7F7F" mb={4}>compétences</Text>
-                            {dataCom.map((item) =>( 
+                            {dataCom?.map((item) =>( 
                             <Text fontWeight="medium" key={item.id_Comptence}>{item.nom}<br/></Text>
                             ))}
                         </Box>
 
                         <Box display="flex" flexDirection="column" gap={2}>
                             <Text fontWeight="bold" color="#7F7F7F" mb={4}>Logiciels et applications</Text>
-                            {dataLog.map((item) =>(
+                            {dataLog?.map((item) =>(
                                 <Text fontWeight="medium" key={item.id_Logiciel}>
                                     {item.nom}<br/>
                                 </Text>
                             ))}
                         </Box>
                     </Box>
-                </Flex>
+                </Flex> 
 
-                
+                <Box id="exclude1">
 
                 <Button colorScheme='blue' variant='outline' leftIcon={<FaDownload />}
+                    onClick={handleDownload}
                     _hover={{ bg: "#0080ff", color: "white", transform: "translateY(-10px)" }} borderRadius='full' >
                     <Text fontSize={isNotSmallerScreen ? "20px" : "10px"}>Télécharger mon CV</Text>
-                </Button>
+                </Button></Box>
 
 
 
-                <Foot></Foot>
-                <Social></Social>
+                <Box id="exclude1"><Foot></Foot></Box>
+                <Box id="exclude1"><Social></Social></Box>
                 <Footer></Footer>
             </VStack>
 

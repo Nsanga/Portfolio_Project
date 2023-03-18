@@ -16,9 +16,9 @@ function Foot(){
                 <Text fontFamily='Raleway' fontWeight="bold" fontSize={isNotSmallerScreen ? "30px" : "14px"}>Envie de faire partie de mes réalisations ?</Text>
                 <Text fontFamily='Raleway' fontWeight="semibold" fontSize={isNotSmallerScreen ? "20px" : "14px"}>Confiez-moi votre projet digital !</Text>
                 <Button colorScheme='#ffffff' variant='outline' mt={8}
-                    _hover={{ bg: "#ffffff", color: "#0080ff" }} onClick={() => window.open("mailto:mercuremekinda@gmail.com")}>Me contactez</Button>
+                    _hover={{ bg: "#ffffff", color: "#0080ff" }} onClick={() => window.open("mailto:mercuremekinda@gmail.com")}>Me contacter</Button>
             </VStack>
-            <Text fontFamily='Raleway' fontWeight="medium" fontSize={isNotSmallerScreen ? "15px" : "12px"}>Yaoundé Cameroun</Text>
+            <Text fontFamily='Raleway' fontWeight="medium" fontSize={isNotSmallerScreen ? "15px" : "12px"}>Yaoundé, Cameroun</Text>
             <Link href="mailto:mercuremekinda@gmail.com" target="_blank" 
             fontFamily='Raleway' fontWeight="medium" fontSize={isNotSmallerScreen ? "15px" : "12px"} _hover={{color:"red", textDecoration:"none"}}>mercuremekinda@gmail.com</Link>
             <Spacer/></VStack>

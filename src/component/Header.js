@@ -37,18 +37,19 @@ function Header() {
                 <Box mt={isNotSmallerScreen ? "0" : 16} align='flex-end' >
                     <Text display={isNotSmallerScreen ? "none" : "flex"} fontSize="5xl" fontWeight="semibold" mb={8}>Hello, c'est moi</Text>
                     <Image src={bulle} alt="Alternate Text" display={isNotSmallerScreen ? "flex" : "none"} />
-                    <Text fontFamily="EB Garamond" fontStyle="normal" fontWeight="bold" fontSize="64px" mt={-8}>{data.nom}</Text>
-                    <Text fontFamily='Raleway' fontWeight="semibold" fontSize={isNotSmallerScreen ? "36px" : "25px"} mt={isNotSmallerScreen ? "8" : "0"}>{data.metier}</Text>
-                    <Text fontFamily='Raleway' fontWeight="medium" fontSize={isNotSmallerScreen ? "23px" : "20px"} mt={isNotSmallerScreen ? "4" : "0"}>{data.description}</Text>
+                    <Text fontFamily="EB Garamond" fontStyle="normal" fontWeight="bold" fontSize="64px" mt={-8}>{data?.nom}</Text>
+                    <Text fontFamily='Raleway' fontWeight="semibold" fontSize={isNotSmallerScreen ? "36px" : "25px"} 
+                    mt={isNotSmallerScreen ? "8" : "0"} w={isNotSmallerScreen ? "70%" : "65%"}>{data?.metier}</Text>
+                    <Text fontFamily='Raleway' fontWeight="medium" fontSize={isNotSmallerScreen ? "23px" : "20px"} mt={isNotSmallerScreen ? "4" : "0"}>{data?.description}</Text>
                     <Button colorScheme='blue' variant='outline' mt={8}
-                    _hover={{ bg: "#0080ff", color: "white" }} onClick={() => window.open("mailto:mercuremekinda@gmail.com")}>Contactez moi</Button>
+                    _hover={{ bg: "#0080ff", color: "white" }} onClick={() => window.open("mailto:mercuremekinda@gmail.com")}>Contactez-moi</Button>
 
 
 
                 </Box>
                 <Image alignSelf="center" mt={isNotSmallerScreen ? "0" : "12"} mb={isNotSmallerScreen ? "0" : "12"}
                 px={isNotSmallerScreen ? "0" : 6} borderRadius='full' 
-                backgroundColor="transparent" boxShadow="lg" boxSize={isNotSmallerScreen ? "500px" : "300px"} src={avatar} />
+                backgroundColor="transparent" boxShadow="lg" boxSize={isNotSmallerScreen ? "500px" : "300px"} src={data?.image} />
             </Flex>
 
         </Stack>

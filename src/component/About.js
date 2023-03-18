@@ -8,7 +8,7 @@ import about from "../assets/about.png";
 function About() {
     const [data, setData] = React.useState([]);
 
-    const [isNotSmallerScreeen] = useMediaQuery("(min-width:600px)");
+    const [isNotSmallerScreen] = useMediaQuery("(min-width:600px)");
 
     useEffect(() => {
         axios.get("http://localhost:5000/api/auth/profile")
@@ -20,21 +20,22 @@ function About() {
 }, [])
 
     return (
-        <VStack ml={isNotSmallerScreeen ? "0" : "60"} py={10} >
+        <VStack ml={isNotSmallerScreen ? "0" : "60"} py={10} >
             <br />
-            <Flex display="flex" flexDirection="column" gap={4} >
-                <Card w={isNotSmallerScreeen ? "65%":"95%"} boxShadow="8px 4px 4px rgba(0, 0, 0, 0.25)" borderRadius="10px">
+            <Flex alignItems="center" >
+                <Card w={isNotSmallerScreen ? "65%":"90%"} boxShadow="8px 4px 4px rgba(0, 0, 0, 0.25)" borderRadius="10px">
                     <CardHeader><Text fontFamily='Raleway' fontWeight="semibold" fontSize="30px">A propos de moi</Text>
                         <br /></CardHeader>
-                    <CardBody display="flex" flexDirection="row" gap={4}>
-                        <Box>
-                            <Image src={about} alt="Alternate Text" />
+                    <CardBody display="flex" flexDirection="row" gap={2}>
+                        <Box >
+                            <Image src={data?.about_image} alt="Mercure Mekinda" />
                         </Box>
-                        <Box w={isNotSmallerScreeen ?"543px":"390px"} alignSelf="center">
-                            <Text fontFamily='Raleway' fontWeight="medium" fontSize={isNotSmallerScreeen ? "15px":"12px" }>
-                                {data.about_description}
+                        <Box w={isNotSmallerScreen ?"543px":"390px"} >
+                        
+                            <Text fontFamily='Raleway' fontWeight="medium" fontSize={isNotSmallerScreen ? "17.2px":"12px" }>
+                                 {data?.about_description}
                             </Text>
-
+                            
                         </Box>
                     </CardBody>
 
