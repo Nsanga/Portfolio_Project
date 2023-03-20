@@ -8,7 +8,6 @@ import { FaSun, FaMoon, FaBars } from 'react-icons/fa'
 import { Image, Button } from "@chakra-ui/react";
 import { FaEnvelope, FaFile, FaUser, FaDownload } from "react-icons/fa";
 import logo from "../assets/logo.png";
-import cv from "../assets/cv.jpeg"
 import SocialWork from "../component/SocialWork";
 import Foot from "../component/Foot";
 import Social from "../component/Social";
@@ -42,7 +41,7 @@ function Cv() {
     const [isNotSmallerScreen] = useMediaQuery("(min-width:600px)");
     useEffect(() => {
 
-        axios.get("http://localhost:5000/api/projet/getAll")
+        axios.get("http://localhost:7000/api/projet/getAll")
             .then(response => {
                 console.log("Realisation ::", response.data.data);
                 setDataProjet(response.data.data)
@@ -52,7 +51,7 @@ function Cv() {
     }, [])
 
     useEffect(() => {
-        axios.get("http://localhost:5000/api/realisation/1")
+        axios.get("http://localhost:7000/api/realisation/1")
         .then(response => {
           console.log("DescriptionCV ::", response.data.data);
           setData(response.data.data)
@@ -60,7 +59,7 @@ function Cv() {
       })
       .catch(err => console.log(err));
 
-      axios.get("http://localhost:5000/api/experience/getAll")
+      axios.get("http://localhost:7000/api/experience/getAll")
         .then(response => {
           console.log("DescriptionCV ::", response.data.data);
           setDataExp(response.data.data)
@@ -68,7 +67,7 @@ function Cv() {
       })
       .catch(err => console.log(err));
 
-      axios.get("http://localhost:5000/api/education/getAll")
+      axios.get("http://localhost:7000/api/education/getAll")
         .then(response => {
           console.log("Education ::", response.data.data);
           setDataEd(response.data.data)
@@ -76,7 +75,7 @@ function Cv() {
       })
       .catch(err => console.log(err));
 
-      axios.get("http://localhost:5000/api/competence/getAll")
+      axios.get("http://localhost:7000/api/competence/getAll")
         .then(response => {
           console.log("Competence ::", response.data.data);
           setDataCom(response.data.data)
@@ -84,14 +83,14 @@ function Cv() {
       })
       .catch(err => console.log(err));
 
-      axios.get("http://localhost:5000/api/logiciel/getAll")
+      axios.get("http://localhost:7000/api/logiciel/getAll")
         .then(response => {
           console.log("logiciels ::", response.data.data);
           setDataLog(response.data.data)
      
       })
       .catch(err => console.log(err));
-      axios.get("http://localhost:5000/api/projet/getAll")
+      axios.get("http://localhost:7000/api/projet/getAll")
         .then(response => {
           console.log("Projet ::", response.data.data);
           setDataProjet(response.data.data)

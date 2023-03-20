@@ -20,7 +20,7 @@ function Header() {
     const [data, setData] = React.useState([]);
     useEffect(() => {
 
-        axios.get("http://localhost:5000/api/auth/profile")
+        axios.get("http://localhost:7000/api/auth/profile")
         .then(response => {
           console.log("ProfileAcc ::", response);
           setData(response.data.data)

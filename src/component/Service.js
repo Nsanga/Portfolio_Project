@@ -14,7 +14,7 @@ function Service() {
 
 
     useEffect(() => {
-        axios.get("http://localhost:5000/api/service/getAll")
+        axios.get("http://localhost:7000/api/service/getAll")
             .then(response => {
                 console.log("ListService ::", response.data.data);
                 setData(response.data.data);

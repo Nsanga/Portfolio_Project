@@ -14,7 +14,6 @@ import Foot from "../component/Foot";
 import Social from "../component/Social";
 import Footer from "../component/Footer";
 import Popovers from "../component/Popovers";
-import realisation from "../assets/realisation.png";
 import { Link } from "react-router-dom";
 import {
     Menu,
@@ -22,7 +21,6 @@ import {
     MenuList,
     MenuItem
 } from '@chakra-ui/react'
-import realisations from "../assets/realisations.png";
 import Carousel from "react-elastic-carousel";
 import Gmail from "../component/Gmail";
 
@@ -43,7 +41,7 @@ function Realisation() {
     const [isNotSmallerScreen] = useMediaQuery("(min-width:600px)");
 
     useEffect(() => {
-        axios.get("http://localhost:5000/api/auth/profile")
+        axios.get("http://localhost:7000/api/auth/profile")
         .then(response => {
           console.log("Realisation ::", response.data.data);
           setData(response.data.data)
@@ -51,7 +49,7 @@ function Realisation() {
       })
       .catch(err => console.log(err));
 
-      axios.get("http://localhost:5000/api/projet/getAll")
+      axios.get("http://localhost:7000/api/projet/getAll")
         .then(response => {
           console.log("Projet ::", response.data.data);
           setDataProjet(response.data.data)
