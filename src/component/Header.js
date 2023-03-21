@@ -8,6 +8,7 @@ import PopPop from "../component/PopPop";
 import React from 'react'
 import { useEffect } from 'react';
 import axios from 'axios';
+import {url} from '../urlLoader'
 
 
 function Header() {
@@ -20,7 +21,7 @@ function Header() {
     const [data, setData] = React.useState([]);
     useEffect(() => {
 
-        axios.get("http://localhost:7000/api/auth/profile")
+        axios.get(`${url}/api/auth/profile`)
         .then(response => {
           console.log("ProfileAcc ::", response);
           setData(response.data.data)

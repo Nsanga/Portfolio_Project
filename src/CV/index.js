@@ -22,7 +22,7 @@ import {
 import Gmail from "../component/Gmail";
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import { Avatar } from '@chakra-ui/react';
+import { url } from '../urlLoader';
 
 
 
@@ -41,7 +41,7 @@ function Cv() {
     const [isNotSmallerScreen] = useMediaQuery("(min-width:600px)");
     useEffect(() => {
 
-        axios.get("http://localhost:7000/api/projet/getAll")
+        axios.get(`${url}/api/projet/getAll`)
             .then(response => {
                 console.log("Realisation ::", response.data.data);
                 setDataProjet(response.data.data)
@@ -51,7 +51,7 @@ function Cv() {
     }, [])
 
     useEffect(() => {
-        axios.get("http://localhost:7000/api/realisation/1")
+        axios.get(`${url}/api/realisation/1`)
         .then(response => {
           console.log("DescriptionCV ::", response.data.data);
           setData(response.data.data)
@@ -59,7 +59,7 @@ function Cv() {
       })
       .catch(err => console.log(err));
 
-      axios.get("http://localhost:7000/api/experience/getAll")
+      axios.get(`${url}/api/experience/getAll`)
         .then(response => {
           console.log("DescriptionCV ::", response.data.data);
           setDataExp(response.data.data)
@@ -67,7 +67,7 @@ function Cv() {
       })
       .catch(err => console.log(err));
 
-      axios.get("http://localhost:7000/api/education/getAll")
+      axios.get(`${url}/api/education/getAll`)
         .then(response => {
           console.log("Education ::", response.data.data);
           setDataEd(response.data.data)
@@ -75,7 +75,7 @@ function Cv() {
       })
       .catch(err => console.log(err));
 
-      axios.get("http://localhost:7000/api/competence/getAll")
+      axios.get(`${url}/api/competence/getAll`)
         .then(response => {
           console.log("Competence ::", response.data.data);
           setDataCom(response.data.data)
@@ -83,14 +83,14 @@ function Cv() {
       })
       .catch(err => console.log(err));
 
-      axios.get("http://localhost:7000/api/logiciel/getAll")
+      axios.get(`${url}/api/logiciel/getAll`)
         .then(response => {
           console.log("logiciels ::", response.data.data);
           setDataLog(response.data.data)
      
       })
       .catch(err => console.log(err));
-      axios.get("http://localhost:7000/api/projet/getAll")
+      axios.get(`${url}/api/projet/getAll`)
         .then(response => {
           console.log("Projet ::", response.data.data);
           setDataProjet(response.data.data)

@@ -7,6 +7,7 @@ import { VStack, Text, Box, Spacer, Heading, Stack, Flex } from "@chakra-ui/layo
 import { Image } from "@chakra-ui/react";
 import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
 import { HashLink } from "react-router-hash-link";
+import {url} from '../urlLoader'
 
 function Realisation() {
 
@@ -15,7 +16,7 @@ function Realisation() {
     const [dataProjet, setDataProjet] = React.useState([]);
     useEffect(() => {
 
-        axios.get("http://localhost:7000/api/projet/getAll")
+        axios.get(`${url}/api/projet/getAll`)
             .then(response => {
                 console.log("ProjetAccueil ::", response.data.data);
                 setDataProjet(response.data.data)

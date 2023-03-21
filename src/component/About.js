@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useMediaQuery } from "@chakra-ui/media-query";
 import { VStack, Text, Box, Flex } from "@chakra-ui/layout";
 import { Card, Image, CardHeader, CardBody } from "@chakra-ui/react";
+import {url} from "../urlLoader";
 
 function About() {
     const [data, setData] = React.useState([]);
@@ -10,7 +11,7 @@ function About() {
     const [isNotSmallerScreen] = useMediaQuery("(min-width:600px)");
 
     useEffect(() => {
-        axios.get("http://localhost:7000/api/auth/profile")
+        axios.get(`${url}/api/auth/profile`)
         .then(response => {
           console.log("About ::", response.data.data);
           setData(response.data.data)

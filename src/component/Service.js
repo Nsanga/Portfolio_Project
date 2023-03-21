@@ -5,6 +5,7 @@ import { VStack, Text, Box, Flex } from "@chakra-ui/layout";
 import { Card, IconButton, Image } from "@chakra-ui/react";
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import axios from 'axios';
+import {url} from '../urlLoader';
 
 function Service() {
     const [data, setData] = useState([]);
@@ -14,7 +15,7 @@ function Service() {
 
 
     useEffect(() => {
-        axios.get("http://localhost:7000/api/service/getAll")
+        axios.get(`${url}/api/service/getAll`)
             .then(response => {
                 console.log("ListService ::", response.data.data);
                 setData(response.data.data);

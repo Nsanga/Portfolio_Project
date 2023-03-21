@@ -23,6 +23,7 @@ import {
 } from '@chakra-ui/react'
 import Carousel from "react-elastic-carousel";
 import Gmail from "../component/Gmail";
+import {url} from "../urlLoader";
 
 const breakPoints = [
     { width: 1, itemsToShow: 1 },
@@ -41,7 +42,7 @@ function Realisation() {
     const [isNotSmallerScreen] = useMediaQuery("(min-width:600px)");
 
     useEffect(() => {
-        axios.get("http://localhost:7000/api/auth/profile")
+        axios.get(`${url}/api/auth/profile`)
         .then(response => {
           console.log("Realisation ::", response.data.data);
           setData(response.data.data)
@@ -49,7 +50,7 @@ function Realisation() {
       })
       .catch(err => console.log(err));
 
-      axios.get("http://localhost:7000/api/projet/getAll")
+      axios.get(`${url}/api/projet/getAll`)
         .then(response => {
           console.log("Projet ::", response.data.data);
           setDataProjet(response.data.data)
@@ -144,7 +145,7 @@ function Realisation() {
                         </CardHeader>
                         <CardBody justifyContent="space-around" alignItems="center">
                             <Image
-                                src={realisation}
+                                src={item.image}
                                 alt='Green double couch with wooden legs'
                                 borderRadius='xl'
                             />
@@ -181,7 +182,7 @@ function Realisation() {
                         </CardHeader>
                         <CardBody justifyContent="space-around" alignItems="center">
                             <Image
-                                src={realisation}
+                                src={item.image}
                                 alt='Green double couch with wooden legs'
                                 borderRadius='xl'
                             />
