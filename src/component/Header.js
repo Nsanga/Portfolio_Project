@@ -40,7 +40,7 @@ function Header() {
                     <Image src={bulle} alt="Alternate Text" display={isNotSmallerScreen ? "flex" : "none"} />
                     <Text fontFamily="EB Garamond" fontStyle="normal" fontWeight="bold" fontSize="64px" mt={-8}>{data?.nom}</Text>
                     <Text fontFamily='Raleway' fontWeight="semibold" fontSize={isNotSmallerScreen ? "36px" : "25px"} 
-                    mt={isNotSmallerScreen ? "8" : "0"} w={isNotSmallerScreen ? "70%" : "65%"}>{data?.metier}</Text>
+                    mt={isNotSmallerScreen ? "8" : "0"} w={isNotSmallerScreen ? "70%" : "75%"}>{data?.metier}</Text>
                     <Text fontFamily='Raleway' fontWeight="medium" fontSize={isNotSmallerScreen ? "23px" : "20px"} mt={isNotSmallerScreen ? "4" : "0"}>{data?.description}</Text>
                     <PopPop></PopPop>
 
