@@ -8,12 +8,14 @@ import { Image } from "@chakra-ui/react";
 import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
 import { HashLink } from "react-router-hash-link";
 import {url} from '../urlLoader'
+import { useNavigate } from "react-router-dom";
 
 function Realisation() {
 
     const [isNotSmallerScreeen] = useMediaQuery("(min-width:600px)");
 
     const [dataProjet, setDataProjet] = React.useState([]);
+
     useEffect(() => {
 
         axios.get(`${url}/api/projet/getAll`)
@@ -67,7 +69,13 @@ function Realisation() {
                             </CardBody>
 
                             <CardFooter alignSelf="flex-end">
-                                <IconButton icon={<ArrowForwardIcon />} isRound='true' variant='outline' colorScheme='auto' aria-label='Call Sage' fontSize='20px'></IconButton>
+                                <IconButton icon={<ArrowForwardIcon />} 
+                                onClick={()=> window.open(item.lien, '_blank')}
+                                isRound='true' 
+                                variant='outline' 
+                                colorScheme='auto' 
+                                aria-label='Call Sage' 
+                                fontSize='20px'></IconButton>
                             </CardFooter>
 
                         </Card>
@@ -112,15 +120,13 @@ function Realisation() {
                             </CardBody>
 
                             <CardFooter alignSelf="flex-end">
-                            <a href={item.lien} target='_blank' rel='noopener noreferrer'>
-                                <IconButton 
-                                icon={<ArrowForwardIcon />} 
+                                <IconButton icon={<ArrowForwardIcon />} 
+                                onClick={()=> window.open(item.lien, '_blank')}
                                 isRound='true' 
                                 variant='outline' 
                                 colorScheme='auto' 
                                 aria-label='Call Sage' 
-                                fontSize='20px'/>
-                            </a>
+                                fontSize='20px'></IconButton>
                             </CardFooter>
 
                         </Card>

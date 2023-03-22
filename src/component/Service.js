@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "@chakra-ui/media-query";
 import { VStack, Text, Box, Flex } from "@chakra-ui/layout";
@@ -27,6 +27,7 @@ function Service() {
     }, [])
     console.log("datasss::", data)
 
+
     const handleNext = () => {
         setActiveIndex((index) => (index + 1) % data.length);
     };
@@ -52,7 +53,7 @@ function Service() {
                         <Flex justifyContent="space-around" alignItems="center">
 
                             <Box align="center" w="50%">
-
+                            
                                 <Text fontFamily='Raleway' fontWeight="semibold" fontSize={isNotSmallerScreeen ? "28px" : "14px"} mt={8}>{data[activeIndex]?.nom}<br/></Text>
                                 <Text fontFamily='Raleway' fontWeight="medium" fontSize={isNotSmallerScreeen ? "18px" : "10px"}
                                 py={isNotSmallerScreeen ? "0" : "8"}>{data[activeIndex]?.description}</Text><br />
