@@ -41,7 +41,7 @@ function Service() {
     console.log("datasss::", data)
 
     return (
-        <VStack ml={isNotSmallerScreeen ? "0" : "5"} w={isNotSmallerScreeen ? "72%" : "100%"}>
+        <VStack ml={isNotSmallerScreeen ? "0" : "5"} w={isNotSmallerScreeen ? "72%" : "95%"}>
             <br />
             <Box display="flex" flexDirection="column" px={2} gap={4} w="100%">
                 <Text ml={isNotSmallerScreeen ? "0" : "2"} fontFamily='Raleway' fontWeight="semibold"
@@ -51,7 +51,7 @@ function Service() {
                 <br />
 
                 <Box boxShadow="8px 4px 4px rgba(0, 0, 0, 0.25)" borderRadius="10px" px={isNotSmallerScreeen ? "10" : "0"}
-                    w={isNotSmallerScreeen ? "95%" : "100%"} backgroundColor="#2e3748">
+                    w={isNotSmallerScreeen ? "95%" : "100%"}>
 
                     <Slider {...settings}>
                         {data.map(item => (
