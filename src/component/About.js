@@ -23,7 +23,7 @@ function About() {
         <VStack  py={10}>
             <br />
             
-                <Card w={isNotSmallerScreen ? "65%":"76%"} boxShadow="8px 4px 4px rgba(0, 0, 0, 0.25)" borderRadius="10px">
+                <Card w={isNotSmallerScreen ? "65%":"75%"} boxShadow="8px 4px 4px rgba(0, 0, 0, 0.25)" borderRadius="10px">
                     <CardHeader><Text fontFamily='Raleway' fontWeight="semibold" fontSize="30px">A propos de moi</Text>
                         <br /></CardHeader>
                     <CardBody display="flex" flexDirection="row" gap={2}>

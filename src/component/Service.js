@@ -41,7 +41,7 @@ function Service() {
     console.log("datasss::", data)
 
     return (
-        <VStack ml={isNotSmallerScreeen ? "0" : "5"} w={isNotSmallerScreeen ? "72%" : "95%"}>
+        <VStack ml={isNotSmallerScreeen ? "0" : "5"} w={isNotSmallerScreeen ? "72%" : "100%"}>
             <br />
             <Box display="flex" flexDirection="column" px={2} gap={4} w="100%">
                 <Text ml={isNotSmallerScreeen ? "0" : "2"} fontFamily='Raleway' fontWeight="semibold"
