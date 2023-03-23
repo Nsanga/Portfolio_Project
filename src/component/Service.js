@@ -5,13 +5,26 @@ import { VStack, Text, Box, Flex } from "@chakra-ui/layout";
 import { Card, IconButton, Image } from "@chakra-ui/react";
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import axios from 'axios';
-import {url} from '../urlLoader';
+import { url } from '../urlLoader';
+import Carousel from "react-elastic-carousel";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from 'react-slick';
+
 
 function Service() {
     const [data, setData] = useState([]);
-    const [activeIndex, setActiveIndex] = useState(0);
 
     const [isNotSmallerScreeen] = useMediaQuery("(min-width:600px)");
+
+    const settings = {
+        dots: true,
+        infinite: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 3000,
+    };
 
 
     useEffect(() => {
@@ -27,51 +40,40 @@ function Service() {
     }, [])
     console.log("datasss::", data)
 
-
-    const handleNext = () => {
-        setActiveIndex((index) => (index + 1) % data.length);
-    };
-
-    const handlePrev = () => {
-        setActiveIndex((index) => (index - 1 + data.length) % data.length);
-    };
-
     return (
-        <VStack ml={isNotSmallerScreeen ? "40" : "72"}>
+        <VStack ml={isNotSmallerScreeen ? "0" : "5"} w={isNotSmallerScreeen ? "72%" : "100%"}>
             <br />
-            <Box display="flex" flexDirection="column" px={2} gap={4}>
-                <Text ml={isNotSmallerScreeen ? "32" : "2"} fontFamily='Raleway' fontWeight="semibold"
-                    px={isNotSmallerScreeen ? "14" : "0"} fontSize={isNotSmallerScreeen ? "50px" : "25px"}>Qu’est-ce que je peux faire ?</Text>
-                <Text ml={isNotSmallerScreeen ? "32" : "2"} fontFamily='Raleway' fontWeight="medium"
-                    px={isNotSmallerScreeen ? "14" : "0"} fontSize={isNotSmallerScreeen ? "30px" : "20px"}>Offre de Services</Text>
+            <Box display="flex" flexDirection="column" px={2} gap={4} w="100%">
+                <Text ml={isNotSmallerScreeen ? "0" : "2"} fontFamily='Raleway' fontWeight="semibold"
+                    fontSize={isNotSmallerScreeen ? "50px" : "25px"}>Qu’est-ce que je peux faire ?</Text>
+                <Text ml={isNotSmallerScreeen ? "2" : "2"} fontFamily='Raleway' fontWeight="medium"
+                    fontSize={isNotSmallerScreeen ? "30px" : "20px"}>Offre de Services</Text>
                 <br />
 
+                <Box boxShadow="8px 4px 4px rgba(0, 0, 0, 0.25)" borderRadius="10px" px={isNotSmallerScreeen ? "10" : "0"}
+                    w={isNotSmallerScreeen ? "95%" : "100%"} backgroundColor="#2e3748">
 
-                <Box align="center" ml={isNotSmallerScreeen ? "26" : "0"} px={isNotSmallerScreeen ? "10" : "0"}>
-                    <Card display="flex" flexDirection="row" align="center" boxShadow="8px 4px 4px rgba(0, 0, 0, 0.25)" borderRadius="10px"
-                        w={isNotSmallerScreeen ? "75%" : "100%"}>
-                        <Flex justifyContent="space-around" alignItems="center">
+                    <Slider {...settings}>
+                        {data.map(item => (
+                            <div key={item.id_Service}>
+                                <Flex align="center" justifyContent="center">
+                                    <Box align="center" w={isNotSmallerScreeen ? "80%" : "100%"}>
+                                        <Text fontFamily='Raleway' fontWeight="semibold" fontSize={isNotSmallerScreeen ? "28px" : "14px"} mt={8}>{item.nom}<br /></Text>
+                                        <Text fontFamily='Raleway' fontWeight="medium" fontSize={isNotSmallerScreeen ? "18px" : "10px"}
+                                            py={isNotSmallerScreeen ? "0" : "8"}>{item.description}</Text><br />
+                                    </Box>
+                                    <Box ml={8} mr={4} w="50%">
+                                        <Image src={item.image} alt={item.nom} />
+                                    </Box>
+                                </Flex>
 
-                            <Box align="center" w="50%">
-                            
-                                <Text fontFamily='Raleway' fontWeight="semibold" fontSize={isNotSmallerScreeen ? "28px" : "14px"} mt={8}>{data[activeIndex]?.nom}<br/></Text>
-                                <Text fontFamily='Raleway' fontWeight="medium" fontSize={isNotSmallerScreeen ? "18px" : "10px"}
-                                py={isNotSmallerScreeen ? "0" : "8"}>{data[activeIndex]?.description}</Text><br />
+                            </div>
+                        ))}
+                    </Slider>
 
 
-                            </Box>
-
-                            <Box w="30%">
-                                <Image src={data[activeIndex]?.image} alt={data[activeIndex]?.nom} />
-                            </Box>
-
-                        </Flex>
-                    </Card>
-                    <Flex justifyContent="center" py={4} gap={1}>
-                        <IconButton icon={<FaChevronCircleLeft/>} isRound='true' background="none" onClick={handlePrev}/>
-                        <IconButton icon={<FaChevronCircleRight/>} isRound='true' background="none" onClick={handleNext}/>
-                    </Flex>
                 </Box>
+
             </Box>
 
 
