@@ -62,7 +62,7 @@ function Service() {
                                         <Text fontFamily='Raleway' fontWeight="medium" fontSize={isNotSmallerScreeen ? "18px" : "10px"}
                                             py={isNotSmallerScreeen ? "0" : "8"}>{item.description}</Text><br />
                                     </Box>
-                                    <Box ml={8} mr={4} w="50%">
+                                    <Box ml={4} mr={4} w="50%">
                                         <Image src={item.image} alt={item.nom} />
                                     </Box>
                                 </Flex>
